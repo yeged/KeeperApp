@@ -14,7 +14,7 @@ function CreateArea(props) {
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setNote(prevNote => {
+    setNote((prevNote) => {
       return {
         ...prevNote,
         [name]: value
@@ -22,16 +22,22 @@ function CreateArea(props) {
     });
   }
 
+  function checkEmptyNotes(note) {
+    return !Object.values(note).some((x) => x !== null && x !== "");
+  }
+
   function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
+    if (!checkEmptyNotes(note)) {
+      props.onAdd(note);
+      setNote({
+        title: "",
+        content: ""
+      });
+    }
     event.preventDefault();
   }
 
-  function checkBool() {
+  function expandTextArea() {
     setCheck(true);
   }
 
@@ -47,7 +53,7 @@ function CreateArea(props) {
           />
         )}
         <textarea
-          onClick={checkBool}
+          onClick={expandTextArea}
           name="content"
           onChange={handleChange}
           value={note.content}
