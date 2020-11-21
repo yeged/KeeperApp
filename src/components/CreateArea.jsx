@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { Zoom } from "@material-ui/core";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 function CreateArea(props) {
   const [note, setNote] = useState({
@@ -41,8 +42,12 @@ function CreateArea(props) {
     setCheck(true);
   }
 
+  function shrinkTextArea() {
+    setCheck(false);
+  }
+
   return (
-    <div>
+    <ClickAwayListener onClickAway={shrinkTextArea}>
       <form className="create-note">
         {check && (
           <input
@@ -66,7 +71,7 @@ function CreateArea(props) {
           </Fab>
         </Zoom>
       </form>
-    </div>
+    </ClickAwayListener>
   );
 }
 
